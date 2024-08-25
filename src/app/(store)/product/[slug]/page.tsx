@@ -3,13 +3,13 @@ import { Product } from '@/data/types/products'
 import { Metadata } from 'next'
 import Image from 'next/image'
 
-interface ProductPageProps {
+export interface ProductPageProps {
   params: {
     slug: string
   }
 }
 
-async function getProduct(slug: string): Promise<Product> {
+export async function getProduct(slug: string): Promise<Product> {
   const response = await api(`/products/${slug}`, {
     next: {
       revalidate: 60 * 60, // 1 hour
