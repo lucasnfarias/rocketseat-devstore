@@ -1,4 +1,6 @@
-import { getProduct, ProductPageProps } from '@/app/(store)/product/[slug]/page'
+import { ProductPageProps } from '@/app/(store)/product/[slug]/page'
+import { api } from '@/data/api'
+import { Product } from '@/data/types/products'
 import { env } from '@/env'
 import { ImageResponse } from 'next/og'
 import colors from 'tailwindcss/colors'
@@ -12,6 +14,18 @@ export const size = {
 }
 
 export const contentType = 'image/png'
+
+async function getProduct(slug: string): Promise<Product> {
+  const response = await api(`/products/${slug}`, {
+    next: {
+      revalidate: 60 * 60, // 1 hour
+    },
+  })
+
+  const product = await response.json()
+
+  return product
+}
 
 export default async function OgImage({ params }: ProductPageProps) {
   const product = await getProduct(params.slug)
