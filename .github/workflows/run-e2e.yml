@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+
+      - name: Install dependencies with NPM
         run: npm ci
 
       - name: Cypress run
