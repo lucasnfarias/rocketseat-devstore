@@ -2,6 +2,7 @@ import { CartWidget } from '@/components/cart-widget'
 import { SearchForm } from '@/components/search-form'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 export function Header() {
   return (
@@ -11,7 +12,9 @@ export function Header() {
           devstore
         </Link>
 
-        <SearchForm />
+        <Suspense fallback={null}>
+          <SearchForm />
+        </Suspense>
       </div>
       <div className="flex items-center gap-4">
         <CartWidget />
